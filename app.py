@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from flask_cors import cross_origin
 import pickle
 import numpy as np
 
@@ -6,13 +7,18 @@ model = pickle.load(open('model.pkl', 'rb'))
 app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+
+@app.route("/")
+@cross_origin()
+def home():
+    return render_template("index.html")
 
 
-@app.route('/predict', methods=['POST'])
-def predict_placement():
+
+
+@app.route("/predict", methods = ["GET", "POST"])
+@cross_origin()
+def predict():
     Type = int(request.form.get('Type'))
     Air_Temperature = float(request.form.get('Air_Temperature'))
     Process_Temperature = float(request.form.get('Process_Temperature'))
