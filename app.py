@@ -16,7 +16,7 @@ def home():
 
 
 
-@app.route("/predict", methods = ["GET", "POST"])
+@app.route("/predict", methods = ["GET"])
 @cross_origin()
 def predict():
     Type = int(request.form.get('Type'))
